@@ -19,7 +19,7 @@ export async function getCommentsByFrente(slug: string): Promise<Comment[]> {
   const client = getClient()
   if (!client) return []
   const { data, error } = await client
-    .from('comments')
+    .from('gupy_hub_comments')
     .select('*')
     .eq('frente_slug', slug)
     .order('created_at', { ascending: false })
@@ -31,7 +31,7 @@ export async function getAllComments(): Promise<Comment[]> {
   const client = getClient()
   if (!client) return []
   const { data, error } = await client
-    .from('comments')
+    .from('gupy_hub_comments')
     .select('*')
     .order('created_at', { ascending: false })
   if (error) { console.error('getAllComments:', error); return [] }
@@ -46,7 +46,7 @@ export async function insertComment(
   const client = getClient()
   if (!client) return { error: 'Supabase não configurado' }
   const { error } = await client
-    .from('comments')
+    .from('gupy_hub_comments')
     .insert({ frente_slug: frenteSlug, content, author })
   if (error) return { error: error.message }
   return { error: null }
